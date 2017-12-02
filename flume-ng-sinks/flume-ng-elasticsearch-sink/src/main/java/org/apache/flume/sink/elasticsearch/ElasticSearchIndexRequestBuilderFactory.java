@@ -22,6 +22,7 @@ import org.apache.commons.lang.time.FastDateFormat;
 import org.apache.flume.Event;
 import org.apache.flume.conf.Configurable;
 import org.apache.flume.conf.ConfigurableComponent;
+import org.codehaus.jettison.json.JSONException;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 
@@ -51,9 +52,10 @@ public interface ElasticSearchIndexRequestBuilderFactory extends Configurable,
    * @return prepared ElasticSearch {@link IndexRequestBuilder} instance
    * @throws IOException
    *           If an error occurs e.g. during serialization
+ * @throws JSONException 
    */
   IndexRequestBuilder createIndexRequest(Client client, String indexPrefix,
-      String indexType, Event event) throws IOException;
+      String indexType, Event event) throws IOException, JSONException;
 
 
 

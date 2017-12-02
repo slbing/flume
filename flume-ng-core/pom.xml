@@ -87,7 +87,7 @@ limitations under the License.
     </pluginManagement>
 
     <plugins>
-
+<!-- 
       <plugin>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro-maven-plugin</artifactId>
@@ -118,15 +118,13 @@ limitations under the License.
         </executions>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.rat</groupId>
-        <artifactId>apache-rat-plugin</artifactId>
-      </plugin>
+     -->
 
     </plugins>
   </build>
 
   <profiles>
+   <!--
     <profile>
       <id>not-windows</id>
       <activation>
@@ -240,7 +238,7 @@ limitations under the License.
         </plugins>
       </build>
     </profile>
-
+ -->
   </profiles>
 
 

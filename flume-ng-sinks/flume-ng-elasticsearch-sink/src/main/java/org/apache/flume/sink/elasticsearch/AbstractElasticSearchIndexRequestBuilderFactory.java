@@ -27,6 +27,7 @@ import org.apache.flume.conf.ComponentConfiguration;
 import org.apache.flume.conf.Configurable;
 import org.apache.flume.conf.ConfigurableComponent;
 import org.apache.flume.formatter.output.BucketPath;
+import org.codehaus.jettison.json.JSONException;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 
@@ -70,10 +71,11 @@ public abstract class AbstractElasticSearchIndexRequestBuilderFactory
    * {@link Client} via delegation to the subclass-hook template methods
    * {@link #getIndexName(String, long)} and
    * {@link #prepareIndexRequest(IndexRequestBuilder, String, String, Event)}
+ * @throws JSONException 
    */
   @Override
   public IndexRequestBuilder createIndexRequest(Client client,
-        String indexPrefix, String indexType, Event event) throws IOException {
+        String indexPrefix, String indexType, Event event) throws IOException, JSONException {
     IndexRequestBuilder request = prepareIndex(client);
     String realIndexPrefix = BucketPath.escapeString(indexPrefix, event.getHeaders());
     String realIndexType = BucketPath.escapeString(indexType, event.getHeaders());
@@ -116,9 +118,10 @@ public abstract class AbstractElasticSearchIndexRequestBuilderFactory
    *          Flume event to serialize and add to index request
    * @throws IOException
    *           If an error occurs e.g. during serialization
+ * @throws JSONException 
   */
   protected abstract void prepareIndexRequest(
       IndexRequestBuilder indexRequest, String indexName,
-      String indexType, Event event) throws IOException;
+      String indexType, Event event) throws IOException, JSONException;
 
 }

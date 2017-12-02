@@ -18,56 +18,55 @@
  */
 package org.apache.flume.sink.elasticsearch;
 
-import static org.elasticsearch.common.xcontent.XContentFactory.jsonBuilder;
-
 import java.io.IOException;
 import java.util.Map;
 
 import org.apache.flume.Context;
 import org.apache.flume.Event;
 import org.apache.flume.conf.ComponentConfiguration;
-import org.elasticsearch.common.xcontent.XContentBuilder;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
+
+import com.google.gson.JsonObject;
 
 /**
  * Basic serializer that serializes the event body and header fields into
- * individual fields</p>
+ * individual fields
+ * </p>
  *
  * A best effort will be used to determine the content-type, if it cannot be
  * determined fields will be indexed as Strings
  */
-public class ElasticSearchDynamicSerializer implements
-    ElasticSearchEventSerializer {
+public class ElasticSearchDynamicSerializer implements ElasticSearchEventSerializer {
 
-  @Override
-  public void configure(Context context) {
-    // NO-OP...
-  }
+	@Override
+	public void configure(Context context) {
+		// NO-OP...
+	}
 
-  @Override
-  public void configure(ComponentConfiguration conf) {
-    // NO-OP...
-  }
+	@Override
+	public void configure(ComponentConfiguration conf) {
+		// NO-OP...
+	}
 
-  @Override
-  public XContentBuilder getContentBuilder(Event event) throws IOException {
-    XContentBuilder builder = jsonBuilder().startObject();
-    appendBody(builder, event);
-    appendHeaders(builder, event);
-    return builder;
-  }
+	@Override
+	public JSONObject getContent(Event event) throws IOException, JSONException {
+		JSONObject ret = new JSONObject();
 
-  private void appendBody(XContentBuilder builder, Event event)
-      throws IOException {
-    ContentBuilderUtil.appendField(builder, "body", event.getBody());
-  }
+		appendBody(ret, event);
+		appendHeaders(ret, event);
+		return ret;
+	}
 
-  private void appendHeaders(XContentBuilder builder, Event event)
-      throws IOException {
-    Map<String, String> headers = event.getHeaders();
-    for (String key : headers.keySet()) {
-      ContentBuilderUtil.appendField(builder, key,
-          headers.get(key).getBytes(charset));
-    }
-  }
+	private void appendBody(JSONObject builder, Event event) throws IOException, JSONException {
+		builder.put("body",new JSONObject(new String(event.getBody(),"utf-8")));
+	}
+
+	private void appendHeaders(JSONObject builder, Event event) throws IOException, JSONException {
+		Map<String, String> headers = event.getHeaders();
+		for (String key : headers.keySet()) {
+			builder.put(key, headers.get(key));
+		}
+	}
 
 }

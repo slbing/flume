@@ -64,6 +64,7 @@ import org.apache.flume.EventDeliveryException;
 import org.apache.flume.FlumeException;
 import org.apache.flume.source.avro.AvroFlumeEvent;
 import org.apache.flume.source.avro.AvroSourceProtocol;
+import org.apache.flume.source.avro.AvroSourceProtocol.Callback;
 import org.apache.flume.source.avro.Status;
 import org.jboss.netty.channel.ChannelPipeline;
 import org.jboss.netty.channel.socket.SocketChannel;
@@ -98,7 +99,7 @@ public class NettyAvroRpcClient extends AbstractRpcClient implements RpcClient {
   private final List<String> excludeProtocols = new LinkedList<String>();
 
   private Transceiver transceiver;
-  private AvroSourceProtocol.Callback avroClient;
+  private Callback avroClient;
   private static final Logger logger = LoggerFactory
       .getLogger(NettyAvroRpcClient.class);
   private boolean enableDeflateCompression;

@@ -18,6 +18,8 @@
  */
 package org.apache.flume.sink.elasticsearch.client;
 
+import java.net.UnknownHostException;
+
 import org.apache.flume.sink.elasticsearch.ElasticSearchEventSerializer;
 import org.apache.flume.sink.elasticsearch.ElasticSearchIndexRequestBuilderFactory;
 
@@ -40,10 +42,11 @@ public class ElasticSearchClientFactory {
    * @param serializer
    *    Serializer of flume events to elasticsearch documents
    * @return
+ * @throws UnknownHostException 
    */
   public ElasticSearchClient getClient(String clientType, String[] hostNames,
       String clusterName, ElasticSearchEventSerializer serializer,
-      ElasticSearchIndexRequestBuilderFactory indexBuilder) throws NoSuchClientTypeException {
+      ElasticSearchIndexRequestBuilderFactory indexBuilder) throws NoSuchClientTypeException, UnknownHostException {
     if (clientType.equalsIgnoreCase(TransportClient) && serializer != null) {
       return new ElasticSearchTransportClient(hostNames, clusterName, serializer);
     } else if (clientType.equalsIgnoreCase(TransportClient) && indexBuilder != null) { 
@@ -53,26 +56,5 @@ public class ElasticSearchClientFactory {
     }
     throw new NoSuchClientTypeException();
   }
-
-  /**
-   * Used for tests only. Creates local elasticsearch instance client.
-   *
-   * @param clientType Name of client to use
-   * @param serializer Serializer for the event
-   * @param indexBuilder Index builder factory
-   *
-   * @return Local elastic search instance client
-   */
-  public ElasticSearchClient getLocalClient(String clientType,
-                                            ElasticSearchEventSerializer serializer,
-                                            ElasticSearchIndexRequestBuilderFactory indexBuilder)
-      throws NoSuchClientTypeException {
-    if (clientType.equalsIgnoreCase(TransportClient) && serializer != null) {
-      return new ElasticSearchTransportClient(serializer);
-    } else if (clientType.equalsIgnoreCase(TransportClient) && indexBuilder != null)  {
-      return new ElasticSearchTransportClient(indexBuilder);
-    } else if (clientType.equalsIgnoreCase(RestClient)) {
-    }
-    throw new NoSuchClientTypeException();
-  }
+ 
 }

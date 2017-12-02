@@ -18,211 +18,174 @@
  */
 package org.apache.flume.sink.elasticsearch.client;
 
-import com.google.common.annotations.VisibleForTesting;
+import static org.apache.flume.sink.elasticsearch.ElasticSearchSinkConstants.DEFAULT_PORT;
+
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Arrays;
+
 import org.apache.flume.Context;
 import org.apache.flume.Event;
 import org.apache.flume.EventDeliveryException;
 import org.apache.flume.sink.elasticsearch.ElasticSearchEventSerializer;
+import org.apache.flume.sink.elasticsearch.ElasticSearchIndexRequestBuilderFactory;
 import org.apache.flume.sink.elasticsearch.IndexNameBuilder;
+import org.codehaus.jettison.json.JSONException;
 import org.elasticsearch.action.bulk.BulkRequestBuilder;
 import org.elasticsearch.action.bulk.BulkResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
-import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-import org.elasticsearch.node.Node;
-import org.elasticsearch.node.NodeBuilder;
+import org.elasticsearch.common.xcontent.XContentType;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.Arrays;
-import org.apache.flume.sink.elasticsearch.ElasticSearchIndexRequestBuilderFactory;
-
-import static org.apache.flume.sink.elasticsearch.ElasticSearchSinkConstants.DEFAULT_PORT;
+import com.google.common.annotations.VisibleForTesting;
 
 public class ElasticSearchTransportClient implements ElasticSearchClient {
 
-  public static final Logger logger = LoggerFactory
-      .getLogger(ElasticSearchTransportClient.class);
+	public static final Logger logger = LoggerFactory.getLogger(ElasticSearchTransportClient.class);
 
-  private InetSocketTransportAddress[] serverAddresses;
-  private ElasticSearchEventSerializer serializer;
-  private ElasticSearchIndexRequestBuilderFactory indexRequestBuilderFactory;
-  private BulkRequestBuilder bulkRequestBuilder;
+	private InetSocketTransportAddress[] serverAddresses;
+	private ElasticSearchEventSerializer serializer;
+	private ElasticSearchIndexRequestBuilderFactory indexRequestBuilderFactory;
+	private BulkRequestBuilder bulkRequestBuilder;
 
-  private Client client;
+	private Client client;
 
-  @VisibleForTesting
-  InetSocketTransportAddress[] getServerAddresses() {
-    return serverAddresses;
-  }
+	@VisibleForTesting
+	InetSocketTransportAddress[] getServerAddresses() {
+		return serverAddresses;
+	}
 
-  @VisibleForTesting
-  void setBulkRequestBuilder(BulkRequestBuilder bulkRequestBuilder) {
-    this.bulkRequestBuilder = bulkRequestBuilder;
-  }
+	@VisibleForTesting
+	void setBulkRequestBuilder(BulkRequestBuilder bulkRequestBuilder) {
+		this.bulkRequestBuilder = bulkRequestBuilder;
+	}
 
-  /**
-   * Transport client for external cluster
-   * 
-   * @param hostNames
-   * @param clusterName
-   * @param serializer
-   */
-  public ElasticSearchTransportClient(String[] hostNames, String clusterName,
-      ElasticSearchEventSerializer serializer) {
-    configureHostnames(hostNames);
-    this.serializer = serializer;
-    openClient(clusterName);
-  }
+	/**
+	 * Transport client for external cluster
+	 * 
+	 * @param hostNames
+	 * @param clusterName
+	 * @param serializer
+	 * @throws UnknownHostException
+	 */
+	public ElasticSearchTransportClient(String[] hostNames, String clusterName, ElasticSearchEventSerializer serializer)
+			throws UnknownHostException {
+		configureHostnames(hostNames);
+		this.serializer = serializer;
+		openClient(clusterName);
+	}
 
-  public ElasticSearchTransportClient(String[] hostNames, String clusterName,
-      ElasticSearchIndexRequestBuilderFactory indexBuilder) {
-    configureHostnames(hostNames);
-    this.indexRequestBuilderFactory = indexBuilder;
-    openClient(clusterName);
-  }
-  
-  /**
-   * Local transport client only for testing
-   * 
-   * @param indexBuilderFactory
-   */
-  public ElasticSearchTransportClient(ElasticSearchIndexRequestBuilderFactory indexBuilderFactory) {
-    this.indexRequestBuilderFactory = indexBuilderFactory;
-    openLocalDiscoveryClient();
-  }
-  
-  /**
-   * Local transport client only for testing
-   *
-   * @param serializer
-   */
-  public ElasticSearchTransportClient(ElasticSearchEventSerializer serializer) {
-    this.serializer = serializer;
-    openLocalDiscoveryClient();
-  }
+	public ElasticSearchTransportClient(String[] hostNames, String clusterName,
+			ElasticSearchIndexRequestBuilderFactory indexBuilder) throws UnknownHostException {
+		configureHostnames(hostNames);
+		this.indexRequestBuilderFactory = indexBuilder;
+		openClient(clusterName);
+	}
 
-  /**
-   * Used for testing
-   *
-   * @param client
-   *    ElasticSearch Client
-   * @param serializer
-   *    Event Serializer
-   */
-  public ElasticSearchTransportClient(Client client,
-      ElasticSearchEventSerializer serializer) {
-    this.client = client;
-    this.serializer = serializer;
-  }
+	/**
+	 * Used for testing
+	 *
+	 * @param client
+	 *            ElasticSearch Client
+	 * @param serializer
+	 *            Event Serializer
+	 */
+	public ElasticSearchTransportClient(Client client, ElasticSearchEventSerializer serializer) {
+		this.client = client;
+		this.serializer = serializer;
+	}
 
-  /**
-   * Used for testing
-   */
-  public ElasticSearchTransportClient(Client client,
-                                      ElasticSearchIndexRequestBuilderFactory requestBuilderFactory)
-      throws IOException {
-    this.client = client;
-    requestBuilderFactory.createIndexRequest(client, null, null, null);
-  }
+	/**
+	 * Used for testing
+	 * 
+	 * @throws JSONException
+	 */
+	public ElasticSearchTransportClient(Client client, ElasticSearchIndexRequestBuilderFactory requestBuilderFactory)
+			throws IOException, JSONException {
+		this.client = client;
+		requestBuilderFactory.createIndexRequest(client, null, null, null);
+	}
 
-  private void configureHostnames(String[] hostNames) {
-    logger.warn(Arrays.toString(hostNames));
-    serverAddresses = new InetSocketTransportAddress[hostNames.length];
-    for (int i = 0; i < hostNames.length; i++) {
-      String[] hostPort = hostNames[i].trim().split(":");
-      String host = hostPort[0].trim();
-      int port = hostPort.length == 2 ? Integer.parseInt(hostPort[1].trim())
-              : DEFAULT_PORT;
-      serverAddresses[i] = new InetSocketTransportAddress(host, port);
-    }
-  }
-  
-  @Override
-  public void close() {
-    if (client != null) {
-      client.close();
-    }
-    client = null;
-  }
+	private void configureHostnames(String[] hostNames) throws UnknownHostException {
+		logger.warn(Arrays.toString(hostNames));
+		serverAddresses = new InetSocketTransportAddress[hostNames.length];
+		for (int i = 0; i < hostNames.length; i++) {
+			String[] hostPort = hostNames[i].trim().split(":");
+			String host = hostPort[0].trim();
+			int port = hostPort.length == 2 ? Integer.parseInt(hostPort[1].trim()) : DEFAULT_PORT;
 
-  @Override
-  public void addEvent(Event event, IndexNameBuilder indexNameBuilder,
-      String indexType, long ttlMs) throws Exception {
-    if (bulkRequestBuilder == null) {
-      bulkRequestBuilder = client.prepareBulk();
-    }
+			serverAddresses[i] = new InetSocketTransportAddress(InetAddress.getByName(host), port);
+		}
+	}
 
-    IndexRequestBuilder indexRequestBuilder = null;
-    if (indexRequestBuilderFactory == null) {
-      indexRequestBuilder = client
-          .prepareIndex(indexNameBuilder.getIndexName(event), indexType)
-          .setSource(serializer.getContentBuilder(event).bytes());
-    } else {
-      indexRequestBuilder = indexRequestBuilderFactory.createIndexRequest(
-          client, indexNameBuilder.getIndexPrefix(event), indexType, event);
-    }
+	@Override
+	public void close() {
+		if (client != null) {
+			client.close();
+		}
+		client = null;
+	}
 
-    if (ttlMs > 0) {
-      indexRequestBuilder.setTTL(ttlMs);
-    }
-    bulkRequestBuilder.add(indexRequestBuilder);
-  }
+	@Override
+	public void addEvent(Event event, IndexNameBuilder indexNameBuilder, String indexType, long ttlMs)
+			throws Exception {
+		if (bulkRequestBuilder == null) {
+			bulkRequestBuilder = client.prepareBulk();
+		}
 
-  @Override
-  public void execute() throws Exception {
-    try {
-      BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
-      if (bulkResponse.hasFailures()) {
-        throw new EventDeliveryException(bulkResponse.buildFailureMessage());
-      }
-    } finally {
-      bulkRequestBuilder = client.prepareBulk();
-    }
-  }
+		IndexRequestBuilder indexRequestBuilder = null;
+		if (indexRequestBuilderFactory == null) {
+			indexRequestBuilder = client.prepareIndex(indexNameBuilder.getIndexName(event), indexType)
+					.setSource(event.getBody(), XContentType.JSON);
+		} else {
+			indexRequestBuilder = indexRequestBuilderFactory.createIndexRequest(client,
+					indexNameBuilder.getIndexPrefix(event), indexType, event);
+		}
 
-  /**
-   * Open client to elaticsearch cluster
-   * 
-   * @param clusterName
-   */
-  private void openClient(String clusterName) {
-    logger.info("Using ElasticSearch hostnames: {} ",
-        Arrays.toString(serverAddresses));
-    Settings settings = ImmutableSettings.settingsBuilder()
-        .put("cluster.name", clusterName).build();
+		bulkRequestBuilder.add(indexRequestBuilder);
+	}
 
-    TransportClient transportClient = new TransportClient(settings);
-    for (InetSocketTransportAddress host : serverAddresses) {
-      transportClient.addTransportAddress(host);
-    }
-    if (client != null) {
-      client.close();
-    }
-    client = transportClient;
-  }
+	@Override
+	public void execute() throws Exception {
+		try {
+			BulkResponse bulkResponse = bulkRequestBuilder.execute().actionGet();
+			if (bulkResponse.hasFailures()) {
+				throw new EventDeliveryException(bulkResponse.buildFailureMessage());
+			}
+		} finally {
+			bulkRequestBuilder = client.prepareBulk();
+		}
+	}
 
-  /*
-   * FOR TESTING ONLY...
-   * 
-   * Opens a local discovery node for talking to an elasticsearch server running
-   * in the same JVM
-   */
-  private void openLocalDiscoveryClient() {
-    logger.info("Using ElasticSearch AutoDiscovery mode");
-    Node node = NodeBuilder.nodeBuilder().client(true).local(true).node();
-    if (client != null) {
-      client.close();
-    }
-    client = node.client();
-  }
+	/**
+	 * Open client to elaticsearch cluster
+	 * 
+	 * @param clusterName
+	 */
+	private void openClient(String clusterName) {
+		logger.info("Using ElasticSearch hostnames: {} ", Arrays.toString(serverAddresses));
+		Settings settings = Settings.builder().put("cluster.name", clusterName).build();
+		TransportClient transportClient = new PreBuiltTransportClient(settings);
+		for (InetSocketTransportAddress addr : serverAddresses) {
+			transportClient.addTransportAddress(addr);
+		}
 
-  @Override
-  public void configure(Context context) {
-    //To change body of implemented methods use File | Settings | File Templates.
-  }
+		if (client != null) {
+			client.close();
+		}
+		client = transportClient;
+	}
+
+	@Override
+	public void configure(Context context) {
+		// To change body of implemented methods use File | Settings | File
+		// Templates.
+	}
 }

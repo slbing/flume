@@ -42,7 +42,6 @@ limitations under the License.
 
   <modules>
     <module>flume-thrift-source</module>
-    <module>flume-avro-source</module>
   </modules>
 
 </project>
