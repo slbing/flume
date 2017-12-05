@@ -110,7 +110,8 @@ public class ElasticSearchRestClient implements ElasticSearchClient {
 				bulkBuilder.append("\n");
 			}
 		} catch (Exception e) {
-			logger.error("skip this event--------------");
+			e.printStackTrace();
+			logger.error("skip this event:"+e.getMessage());
 		}
 	}
 
