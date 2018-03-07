@@ -134,7 +134,7 @@ public class ElasticSearchRestClient implements ElasticSearchClient {
 //			httpRequest.setHeader("", "	application/json");
 			
 			httpRequest.setEntity(new StringEntity(new String(entity.getBytes(),"utf-8"),"utf-8"));
-			System.out.println("---------"+entity);
+//			System.out.println("---------"+entity);
 			response = httpClient.execute(httpRequest);
 			
 			statusCode = response.getStatusLine().getStatusCode();
