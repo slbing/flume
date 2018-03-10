@@ -95,6 +95,8 @@ public class ElasticSearchRestClient implements ElasticSearchClient {
 			throws Exception {
 		try {
 			JSONObject content = serializer.getContent(event);
+			if(content == null)
+				return;
 
 			Map<String, Map<String, String>> parameters = new HashMap<String, Map<String, String>>();
 			Map<String, String> indexParameters = new HashMap<String, String>();
