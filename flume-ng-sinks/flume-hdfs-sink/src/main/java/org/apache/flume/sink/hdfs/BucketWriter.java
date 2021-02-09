@@ -30,7 +30,7 @@ import org.apache.flume.sink.hdfs.HDFSEventSink.WriterCallback;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.hdfs.DistributedFileSystem;
+//import org.apache.hadoop.hdfs.DistributedFileSystem;
 import org.apache.hadoop.io.SequenceFile.CompressionType;
 import org.apache.hadoop.io.compress.CompressionCodec;
 import org.slf4j.Logger;
@@ -364,16 +364,16 @@ class BucketWriter {
    * if the fileSystem is DistributedFileSystem.
    * Catches and logs the IOException.
    */
-  private synchronized void recoverLease() {
-    if (bucketPath != null && fileSystem instanceof DistributedFileSystem) {
-      try {
-        LOG.debug("Starting lease recovery for {}", bucketPath);
-        ((DistributedFileSystem) fileSystem).recoverLease(new Path(bucketPath));
-      } catch (IOException ex) {
-        LOG.warn("Lease recovery failed for {}", bucketPath, ex);
-      }
-    }
-  }
+//  private synchronized void recoverLease() {
+//    if (bucketPath != null && fileSystem instanceof DistributedFileSystem) {
+//      try {
+//        LOG.debug("Starting lease recovery for {}", bucketPath);
+//        ((DistributedFileSystem) fileSystem).recoverLease(new Path(bucketPath));
+//      } catch (IOException ex) {
+//        LOG.warn("Lease recovery failed for {}", bucketPath, ex);
+//      }
+//    }
+//  }
 
   /**
    * Close the file handle and rename the temp file to the permanent filename.
@@ -401,7 +401,7 @@ class BucketWriter {
                  "). Exception follows.", e);
         sinkCounter.incrementConnectionFailedCount();
         // starting lease recovery process, see FLUME-3080
-        recoverLease();
+//        recoverLease();
       }
       isOpen = false;
     } else {

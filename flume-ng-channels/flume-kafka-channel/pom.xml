@@ -21,7 +21,7 @@ limitations under the License.
   <parent>
     <artifactId>flume-ng-channels</artifactId>
     <groupId>org.apache.flume</groupId>
-    <version>1.8.0-maple-jdk7-SNAPSHOT</version>
+    <version>1.8.0-cdh6.0.1</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
@@ -37,11 +37,11 @@ limitations under the License.
       <groupId>org.apache.flume</groupId>
       <artifactId>flume-ng-sdk</artifactId>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.apache.flume.flume-shared</groupId>
       <artifactId>flume-shared-kafka-test</artifactId>
       <scope>test</scope>
-    </dependency>
+    </dependency> -->
     <dependency>
       <groupId>org.apache.kafka</groupId>
       <artifactId>kafka_2.10</artifactId>
@@ -52,13 +52,13 @@ limitations under the License.
       <artifactId>kafka-clients</artifactId>
       <version>${kafka.version}</version>
     </dependency>
-    <dependency>
+    <!-- <dependency>
       <groupId>org.apache.flume.flume-ng-sinks</groupId>
       <artifactId>flume-ng-kafka-sink</artifactId>
       <version>${project.version}</version>
       <classifier>tests</classifier>
       <scope>test</scope>
-    </dependency>
+    </dependency> -->
 
   </dependencies>
 

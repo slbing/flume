@@ -17,7 +17,7 @@
 	<parent>
 		<groupId>org.apache.flume</groupId>
 		<artifactId>flume-ng-sinks</artifactId>
-		<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+		<version>1.8.0-cdh6.0.1</version>
 	</parent>
 
 	<groupId>org.apache.flume.flume-ng-sinks</groupId>

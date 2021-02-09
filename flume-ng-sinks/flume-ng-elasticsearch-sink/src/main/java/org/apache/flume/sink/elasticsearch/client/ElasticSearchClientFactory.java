@@ -28,7 +28,6 @@ import org.apache.flume.sink.elasticsearch.ElasticSearchIndexRequestBuilderFacto
  * of ElasticSearch clients.
  */
 public class ElasticSearchClientFactory {
-  public static final String TransportClient = "transport";
   public static final String RestClient = "rest";
 
   /**
@@ -47,14 +46,8 @@ public class ElasticSearchClientFactory {
   public ElasticSearchClient getClient(String clientType, String[] hostNames,
       String clusterName, ElasticSearchEventSerializer serializer,
       ElasticSearchIndexRequestBuilderFactory indexBuilder) throws NoSuchClientTypeException, UnknownHostException {
-    if (clientType.equalsIgnoreCase(TransportClient) && serializer != null) {
-      return new ElasticSearchTransportClient(hostNames, clusterName, serializer);
-    } else if (clientType.equalsIgnoreCase(TransportClient) && indexBuilder != null) { 
-      return new ElasticSearchTransportClient(hostNames, clusterName, indexBuilder);
-    } else if (clientType.equalsIgnoreCase(RestClient) && serializer != null) {
+    
       return new ElasticSearchRestClient(hostNames, serializer);
-    }
-    throw new NoSuchClientTypeException();
   }
  
 }

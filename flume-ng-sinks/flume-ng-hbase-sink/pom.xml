@@ -15,7 +15,7 @@
 	<parent>
 		<artifactId>flume-ng-sinks</artifactId>
 		<groupId>org.apache.flume</groupId>
-		<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+		<version>1.8.0-cdh6.0.1</version>
 	</parent>
 	<groupId>org.apache.flume.flume-ng-sinks</groupId>
 	<artifactId>flume-ng-hbase-sink</artifactId>
@@ -107,23 +107,23 @@
 			<artifactId>flume-hdfs-sink</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-minicluster</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 		<dependency>
 			<groupId>org.apache.hbase</groupId>
-			<artifactId>hbase</artifactId>
+			<artifactId>hbase-common</artifactId>
 			<optional>true</optional>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.hbase</groupId>
 			<artifactId>hbase</artifactId>
 			<classifier>tests</classifier>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.zookeeper</groupId>

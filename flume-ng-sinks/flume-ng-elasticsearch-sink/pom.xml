@@ -17,7 +17,7 @@
 	<parent>
 		<artifactId>flume-ng-sinks</artifactId>
 		<groupId>org.apache.flume</groupId>
-		<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+		<version>1.8.0-cdh6.0.1</version>
 	</parent>
 
 	<groupId>org.apache.flume.flume-ng-sinks</groupId>
@@ -51,14 +51,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.elasticsearch</groupId>
-			<artifactId>elasticsearch</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
-			<artifactId>transport</artifactId>
+			<artifactId>elasticsearch-rest-high-level-client</artifactId>
+			<version>${elasticsearch.version}</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>

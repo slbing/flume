@@ -17,7 +17,7 @@
 	<parent>
 		<artifactId>flume-ng-sinks</artifactId>
 		<groupId>org.apache.flume</groupId>
-		<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+		<version>1.8.0-cdh6.0.1</version>
 	</parent>
 
 	<groupId>org.apache.flume.flume-ng-sinks</groupId>
@@ -106,15 +106,15 @@
 			<optional>true</optional>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.hadoop</groupId>
 			<artifactId>hadoop-minicluster</artifactId>
 			<scope>test</scope>
-		</dependency>
+		</dependency> -->
 
 	</dependencies>
 
-	<profiles>
+	<!-- <profiles>
 
 
 		<profile>
@@ -146,6 +146,6 @@
 
 			</dependencies>
 		</profile>
-	</profiles>
+	</profiles> -->
 
 </project>

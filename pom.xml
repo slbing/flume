@@ -21,7 +21,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.apache.flume</groupId>
 	<artifactId>flume-parent</artifactId>
-	<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+	<version>1.8.0-cdh6.0.1</version>
 	
 	<packaging>pom</packaging>
 
@@ -32,8 +32,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 		<!-- Java compiler configuration -->
-		<sourceJavaVersion>1.7</sourceJavaVersion>
-		<targetJavaVersion>1.7</targetJavaVersion>
+		<sourceJavaVersion>1.8</sourceJavaVersion>
+		<targetJavaVersion>1.8</targetJavaVersion>
 
 		<!-- defaults for flaky test and focused test exclusions -->
 		<test.exclude.pattern>$</test.exclude.pattern> <!-- junk pattern -->
@@ -44,18 +44,18 @@
 		<avro.version>1.7.6-kf-cdh5.7.3</avro.version>
 		<checkstyle.plugin.version>2.17</checkstyle.plugin.version>
 		<checkstyle.tool.version>6.19</checkstyle.tool.version>
-		<elasticsearch.version>5.6.0</elasticsearch.version>
-		<hadoop2.version>2.6.0-cdh5.8.3</hadoop2.version>
+		<elasticsearch.version>6.6.0</elasticsearch.version>
+		<hadoop2.version>3.0.0-cdh6.0.1</hadoop2.version>
 		<thrift.version>0.7.0</thrift.version>
 		<kafka.version>0.9.0.1</kafka.version>
 		<kite.version>1.0.0</kite.version>
-		<hive.version>1.0.0</hive.version>
+		<hive.version>2.1.1-cdh6.0.1</hive.version>
 		<xalan.verion>2.7.1</xalan.verion>
 		<xerces.version>2.9.1</xerces.version>
-		<zookeeper.version>3.4.5-cdh5.8.3</zookeeper.version>
+		<zookeeper.version>3.4.5-cdh6.0.1</zookeeper.version>
 
 		<hadoop.version>${hadoop2.version}</hadoop.version>
-		<hbase.version>0.94.2</hbase.version>
+		<hbase.version>2.0.0-cdh6.0.1</hbase.version>
 		<hadoop.common.artifact.id>hadoop-common</hadoop.common.artifact.id>
 		<thrift.version>0.9.0</thrift.version>
 
@@ -793,53 +793,53 @@
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-configuration</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-core</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-checkstyle</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-tools</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-node</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-file-channel</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-jdbc-channel</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-kafka-channel</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-channels</groupId>
 				<artifactId>flume-spillable-memory-channel</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
@@ -851,87 +851,87 @@
 			<dependency>
 				<groupId>org.apache.flume.flume-shared</groupId>
 				<artifactId>flume-shared-kafka-test</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 				<scope>test</scope>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-hdfs-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-hive-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-http-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-irc-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-ng-hbase-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-ng-elasticsearch-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-ng-morphline-solr-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-ng-kafka-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sources</groupId>
 				<artifactId>flume-scribe-source</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sources</groupId>
 				<artifactId>flume-jms-source</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sources</groupId>
 				<artifactId>flume-twitter-source</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-legacy-sources</groupId>
 				<artifactId>flume-thrift-source</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sources</groupId>
 				<artifactId>flume-kafka-source</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
@@ -943,19 +943,19 @@
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-sdk</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sources</groupId>
 				<artifactId>flume-taildir-source</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-sdk</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 				<classifier>tests</classifier>
 				<scope>test</scope>
 			</dependency>
@@ -963,7 +963,7 @@
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-auth</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
@@ -975,14 +975,14 @@
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-clients</groupId>
 				<artifactId>flume-ng-log4jappender</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 				<classifier>jar-with-dependencies</classifier>
 			</dependency>
 
 			<dependency>
 				<groupId>org.apache.flume</groupId>
 				<artifactId>flume-ng-embedded-agent</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 
 			<dependency>
@@ -1181,7 +1181,7 @@
 
 			<dependency>
 				<groupId>org.apache.hbase</groupId>
-				<artifactId>hbase</artifactId>
+				<artifactId>hbase-common</artifactId>
 				<version>${hbase.version}</version>
 			</dependency>
 
@@ -1196,7 +1196,7 @@
 			<dependency>
 				<groupId>org.apache.flume.flume-ng-sinks</groupId>
 				<artifactId>flume-dataset-sink</artifactId>
-				<version>1.8.0-maple-jdk7-SNAPSHOT</version>
+				<version>1.8.0-cdh6.0.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
