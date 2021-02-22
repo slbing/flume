@@ -41,7 +41,7 @@
 		<siteUrlDeployment>file://people.apache.org/www/incubator.apache.org/flume</siteUrlDeployment>
 		<stagingDirectory>${project.basedir}/target/docs</stagingDirectory>
 
-		<avro.version>1.7.6-kf-cdh5.7.3</avro.version>
+		<avro.version>1.7.6-kf-cdh5.15.1</avro.version>
 		<checkstyle.plugin.version>2.17</checkstyle.plugin.version>
 		<checkstyle.tool.version>6.19</checkstyle.tool.version>
 		<elasticsearch.version>6.6.0</elasticsearch.version>
@@ -69,7 +69,7 @@
 		<module>flume-ng-sinks</module>
 		<module>flume-ng-sources</module>
 		<module>flume-ng-node</module>
-		<module>flume-ng-dist</module>
+		<!-- <module>flume-ng-dist</module> -->
 		<module>flume-ng-channels</module>
 		<module>flume-ng-legacy-sources</module>
 		<module>flume-ng-clients</module>
@@ -479,7 +479,7 @@
 				<plugin>
 					<groupId>org.apache.avro</groupId>
 					<artifactId>avro-maven-plugin</artifactId>
-					<version>${avro.version}</version>
+					<version>{avro.version}</version>
 				</plugin>
 
 				<plugin>

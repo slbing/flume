@@ -55,10 +55,10 @@
 			<artifactId>flume-hdfs-sink</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.apache.flume.flume-ng-sinks</groupId>
 			<artifactId>flume-irc-sink</artifactId>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.apache.flume.flume-ng-channels</groupId>

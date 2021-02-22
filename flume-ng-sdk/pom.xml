@@ -138,7 +138,7 @@ limitations under the License.
     </pluginManagement>
     <plugins>
 
-      <plugin>
+      <!-- <plugin>
         <groupId>org.apache.avro</groupId>
         <artifactId>avro-maven-plugin</artifactId>
         <configuration>
@@ -152,7 +152,7 @@ limitations under the License.
             </goals>
           </execution>
         </executions>
-      </plugin>
+      </plugin> -->
 
       <plugin>
         <groupId>com.thoughtworks.paranamer</groupId>
