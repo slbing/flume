@@ -43,6 +43,7 @@ import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestClientBuilder;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.common.xcontent.XContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -101,7 +102,7 @@ public class ElasticSearchRestClient implements ElasticSearchClient {
       if (content == null) return;
       
       IndexRequest indexRequest = new IndexRequest(
-          indexNameBuilder.getIndexName(event), indexType).source(content);
+          indexNameBuilder.getIndexName(event), indexType).source(content.toString(),XContentType.JSON);
       
       synchronized (bulkRequest) {
         bulkRequest.add(indexRequest);
