@@ -22,10 +22,9 @@ limitations under the License.
   <parent>
     <artifactId>flume-parent</artifactId>
     <groupId>org.apache.flume</groupId>
-    <version>1.8.0-cdh6.0.1</version>
+    <version>1.8.0-cdh6.0.1-SNAPSHOT</version>
   </parent>
 
-  <groupId>org.apache.flume</groupId>
   <artifactId>flume-ng-core</artifactId>
   <name>Flume NG Core</name>
 
@@ -43,7 +42,7 @@ limitations under the License.
                   <pluginExecutionFilter>
                     <groupId>org.apache.avro</groupId>
                     <artifactId>avro-maven-plugin</artifactId>
-                    <versionRange>[${avro.version},)</versionRange>
+                    <versionRange>[${avro.verison},)</versionRange>
                     <goals>
                       <goal>idl-protocol</goal>
                       <goal>schema</goal>
@@ -247,13 +246,6 @@ limitations under the License.
     <dependency>
       <groupId>org.apache.flume</groupId>
       <artifactId>flume-ng-sdk</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.apache.flume</groupId>
-      <artifactId>flume-ng-sdk</artifactId>
-      <classifier>tests</classifier>
-      <scope>test</scope>
     </dependency>
 
     <dependency>
