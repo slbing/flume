@@ -46,7 +46,6 @@
 		<checkstyle.tool.version>6.19</checkstyle.tool.version>
 		<elasticsearch.version>6.6.0</elasticsearch.version>
 		<hadoop2.version>3.0.0-cdh6.0.1</hadoop2.version>
-		<thrift.version>0.7.0</thrift.version>
 		<kafka.version>0.9.0.1</kafka.version>
 		<kite.version>1.0.0</kite.version>
 		<hive.version>2.1.1-cdh6.0.1</hive.version>
@@ -663,7 +662,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.2.1</version>
+				<version>4.5.2</version>
 			</dependency>
 
 			<dependency>
